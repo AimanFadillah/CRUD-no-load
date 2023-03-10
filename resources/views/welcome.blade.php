@@ -16,17 +16,18 @@
                 Create
             </button>
         </div>
-        <div class="input-group mt-3">
-            <input type="search" class="form-control" id="cari" placeholder="mencari...." aria-describedby="button-addon2">
-            <button class="btn btn-primary fw-bold" id="cariTombol" type="button">Cari</button>
-          </div>
+        <form id="test">
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" id="cari" placeholder="mencari...." autofocus >
+                <button class="btn btn-primary fw-bold" type="submit" id="cariTombol">Cari</button>
+            </div>
+        </form>
         
             <div class="d-flex justify-content-center"  id="loading" style="margin-top: 100px;position:fixed;z-index:999;left:20%;right:20%;" >
                 <div class="spinner-border text-primary" style="width: 6rem; height: 6rem;" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-
 
         <ol class="list-group list-group-numbered mt-3 mb-5" id="wadahPenduduk" >
            

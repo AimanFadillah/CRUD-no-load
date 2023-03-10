@@ -17,11 +17,7 @@ class PendudukController extends Controller
 
             $cari = $request->query("c");
 
-            // if($request->query("c")){
-                $data = Penduduk::where("nama","like","%" . $cari . "%",)->latest()->paginate(30);
-            // }else {
-                // $data = Penduduk::latest()->paginate(30);
-            // }
+            $data = Penduduk::where("nama","like","%" . $cari . "%",)->latest()->paginate(30);
             
             return response()->json($data);
 

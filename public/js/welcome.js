@@ -27,21 +27,22 @@ formCreate.addEventListener("submit", (e) => {
         wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
         wadahPeduduk.innerHTML = '';
         page = 1
-        dataPenduduk(page);
+        dataPenduduk(page,cari.value);
         window.addEventListener('scroll', scrollHandler);
         wadahPeduduk.style.height = "auto";
         kirim.disabled = false;
     })
 })
 
-cariTombol.addEventListener("click",() => {
+cariTombol.addEventListener("click",(e) => {
+    e.preventDefault();
     wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
-        wadahPeduduk.innerHTML = '';
-        page = 1
-        dataPenduduk(page,cari.value);
-        window.addEventListener('scroll', scrollHandler);
-        wadahPeduduk.style.height = "auto";
-        kirim.disabled = false;
+    wadahPeduduk.innerHTML = '';
+    page = 1
+    dataPenduduk(page,cari.value);
+    window.addEventListener('scroll', scrollHandler);
+    wadahPeduduk.style.height = "auto";
+    kirim.disabled = false;
 })
 
 function dataPenduduk (page,cari) {
