@@ -62,20 +62,21 @@ function dataPenduduk (page,cari) {
                 li.classList.add("d-flex");
                 li.classList.add("justify-content-between");
                 li.classList.add("align-items-start");
+                li.id = data.id;
                 li.innerHTML = 
                 `
                 <div class="ms-2 me-auto">
                 <div class="fw-bold">${data.nama}</div>
                 ${time.getDate()}-${time.getMonth()}-${time.getFullYear()}
                 </div>
-            <button class="showButton mt-1 badge bg-primary border-0 rounded-pill" data-bs-toggle="modal" data-Penduduk=${data.id} data-bs-target="#showModal">Show</button>
-            <button class="editButton mt-1 border-0 mx-1 bg-warning rounded-pill badge" data-bs-toggle="modal" data-bs-target="#editModal" data-Penduduk=${data.id} >Edit</button>
-            <form id="hapusForm">
-            <input type="hidden" name="_method" value="DELETE" >
-            <button class="deleteButton border-0 bg-danger rounded-pill badge" type="submit" data-Penduduk=${data.id} >Hapus</button>
-            </form>
-            `
-            wadahPeduduk.appendChild(li);
+                <button class="showButton mt-1 badge bg-primary border-0 rounded-pill" data-bs-toggle="modal" data-Penduduk=${data.id} data-bs-target="#showModal">Show</button>
+                <button class="editButton mt-1 border-0 mx-1 bg-warning rounded-pill badge" data-bs-toggle="modal" data-bs-target="#editModal" data-Penduduk=${data.id} >Edit</button>
+                <form id="hapusForm">
+                <input type="hidden" name="_method" value="DELETE" >
+                <button class="deleteButton border-0 bg-danger rounded-pill badge" type="submit" data-Penduduk=${data.id} >Hapus</button>
+                </form>
+                `
+                wadahPeduduk.appendChild(li);
             }
         }else if (hasil.length !== 30){
             for(data of hasil){
@@ -85,6 +86,7 @@ function dataPenduduk (page,cari) {
                 li.classList.add("d-flex");
                 li.classList.add("justify-content-between");
                 li.classList.add("align-items-start");
+                li.id = data.id;
                 li.innerHTML = 
                 `
                 <div class="ms-2 me-auto">
@@ -136,6 +138,7 @@ document.addEventListener("click",function (e) {
     }
 
     if(e.target.classList.contains("deleteButton")){
+        let deleteButton = e.target.classList.contains("deleteButton");
         e.preventDefault();
         e.target.disabled = true;
         let hapusForm = document.querySelector("#hapusForm");
@@ -149,11 +152,9 @@ document.addEventListener("click",function (e) {
             },
         })
         .then(() => {
-            wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
-            wadahPeduduk.innerHTML = '';
-            for(let a = 1;a <= page;a++){
-                dataPenduduk(a,cari.value);
-            }
+            let penduduk = document.getElementById(id);
+            wadahPeduduk.removeChild(penduduk);
+            deleteButton.disabled = true;
         }) 
       
     }
@@ -191,6 +192,8 @@ document.addEventListener("click",function (e) {
     }
 
     if(e.target.classList.contains("update")){
+        let updateButton = e.target.classList.contains("update");
+        updateButton.disabled = true;
         e.preventDefault();
         let id = e.target.getAttribute("data-Penduduk");
         fetch(`/penduduk/${id}/`,{
@@ -201,12 +204,24 @@ document.addEventListener("click",function (e) {
                 "X-HTTP-Method-Overidden" : "PUT"
             },
         })
-        .then( () => {
-            wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
-            wadahPeduduk.innerHTML = '';
-            for(let a = 1;a <= page;a++){
-                dataPenduduk(a,cari.value);
-            }
+        .then(hasil => hasil.json())
+        .then( (data) => {
+            let penduduk = document.getElementById(data.id);
+            let time =  new Date(data.created_at);
+            penduduk.innerHTML = 
+            `
+            <div class="ms-2 me-auto">
+            <div class="fw-bold">${data.nama}</div>
+            ${time.getDate()}-${time.getMonth()}-${time.getFullYear()}
+            </div>
+            <button class="showButton mt-1 badge bg-primary border-0 rounded-pill" data-bs-toggle="modal" data-Penduduk=${data.id} data-bs-target="#showModal">Show</button>
+            <button class="editButton mt-1 border-0 mx-1 bg-warning rounded-pill badge" data-bs-toggle="modal" data-bs-target="#editModal" data-Penduduk=${data.id} >Edit</button>
+            <form id="hapusForm">
+            <input type="hidden" name="_method" value="DELETE" >
+            <button class="deleteButton border-0 bg-danger rounded-pill badge" type="submit" data-Penduduk=${data.id} >Hapus</button>
+            </form>
+            `;
+            updateButton.disabled = false;
         })
     }
     

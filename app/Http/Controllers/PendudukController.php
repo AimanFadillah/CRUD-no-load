@@ -53,6 +53,10 @@ class PendudukController extends Controller
         ]);
 
         Penduduk::where("id",$Penduduk->id)->update($validatedData);
+
+        $data = Penduduk::find($Penduduk->id);
+
+        return response()->json($data);
     }
 
 }
