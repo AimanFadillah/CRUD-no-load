@@ -17,7 +17,7 @@ class PendudukController extends Controller
 
             $cari = $request->query("c");
 
-            $data = Penduduk::where("nama","like","%" . $cari . "%",)->latest()->paginate(30);
+            $data = Penduduk::where("nama","like","%" . $cari . "%")->orWhere("jabatan","like","%" . $cari . "%")->latest()->paginate(30);
             
             return response()->json($data);
 
@@ -53,6 +53,10 @@ class PendudukController extends Controller
         ]);
 
         Penduduk::where("id",$Penduduk->id)->update($validatedData);
+
+        $data = Penduduk::find($Penduduk->id);
+
+        return response()->json($data);
     }
 
 }

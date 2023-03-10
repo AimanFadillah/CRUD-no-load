@@ -10,7 +10,7 @@
   <body>
 
     <div class="container mt-3">
-        <h3>CRUD no load</h3>
+        <h3>CRUD NO LOAD</h3>
         <div class="d-flex">
             <button type="button" class="badge border-0 bg-primary mt-3" data-bs-toggle="modal" data-bs-target="#createModal">
                 Create
