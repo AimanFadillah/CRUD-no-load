@@ -24,7 +24,6 @@ formCreate.addEventListener("submit", (e) => {
         }
     })
     .then( () => {
-        wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
         wadahPeduduk.innerHTML = '';
         page = 1
         dataPenduduk(page,cari.value);
@@ -143,6 +142,7 @@ document.addEventListener("click",function (e) {
         e.target.disabled = true;
         let hapusForm = document.querySelector("#hapusForm");
         id = e.target.getAttribute("data-penduduk");
+        loading.classList.remove("d-none")
         fetch(`/penduduk/${id}/`,{
             method:"post",
             body : new FormData(hapusForm),
@@ -155,6 +155,7 @@ document.addEventListener("click",function (e) {
             let penduduk = document.getElementById(id);
             wadahPeduduk.removeChild(penduduk);
             deleteButton.disabled = true;
+            loading.classList.add("d-none")
         }) 
       
     }
@@ -169,6 +170,7 @@ document.addEventListener("click",function (e) {
             </div>
         </div>
         `;
+       
         fetch(`/penduduk/data?s=` +  id)
             .then(hasil => hasil.json())
             .then(hasil => {
@@ -196,6 +198,7 @@ document.addEventListener("click",function (e) {
         updateButton.disabled = true;
         e.preventDefault();
         let id = e.target.getAttribute("data-Penduduk");
+        loading.classList.remove("d-none")
         fetch(`/penduduk/${id}/`,{
             method: "post",
             body: new FormData(formEdit),
@@ -222,6 +225,7 @@ document.addEventListener("click",function (e) {
             </form>
             `;
             updateButton.disabled = false;
+            loading.classList.add("d-none")
         })
     }
     
