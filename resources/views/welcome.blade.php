@@ -17,8 +17,8 @@
             </button>
         </div>
         <div class="input-group mt-3">
-            <input type="text" class="form-control" placeholder="mencari...." aria-describedby="button-addon2">
-            <button class="btn btn-primary fw-bold" type="button">Cari</button>
+            <input type="search" class="form-control" id="cari" placeholder="mencari...." aria-describedby="button-addon2">
+            <button class="btn btn-primary fw-bold" id="cariTombol" type="button">Cari</button>
           </div>
         
             <div class="d-flex justify-content-center"  id="loading" style="margin-top: 100px;position:fixed;z-index:999;left:20%;right:20%;" >
