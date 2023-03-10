@@ -14,8 +14,8 @@ class PendudukController extends Controller
 
     public function data (Request $request) {
         if(!$request->query("s")){
-
             $cari = $request->query("c");
+            $old = $request->query("o");
 
             $data = Penduduk::where("nama","like","%" . $cari . "%")->orWhere("jabatan","like","%" . $cari . "%")->latest()->paginate(30);
             
