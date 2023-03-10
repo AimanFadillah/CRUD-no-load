@@ -12,13 +12,13 @@
     <div class="container mt-3">
         <h3>CRUD no load</h3>
         <div class="d-flex">
-            <button type="button" class="badge border-0 shadow bg-primary mt-3" data-bs-toggle="modal" data-bs-target="#createModal">
+            <button type="button" class="badge border-0 bg-primary mt-3" data-bs-toggle="modal" data-bs-target="#createModal">
                 Create
             </button>
         </div>
-        <div class="input-group mt-4">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+        <div class="input-group mt-3">
+            <input type="text" class="form-control" placeholder="mencari...." aria-describedby="button-addon2">
+            <button class="btn btn-primary fw-bold" type="button">Cari</button>
           </div>
         
             <div class="d-flex justify-content-center"  id="loading" style="margin-top: 100px;position:fixed;z-index:999;left:20%;right:20%;" >
