@@ -12,21 +12,22 @@
     <div class="container mt-3">
         <h3>CRUD no load</h3>
         <div class="d-flex">
-            <button type="button" class="badge border-0 shadow bg-primary mt-3" data-bs-toggle="modal" data-bs-target="#createModal">
+            <button type="button" class="badge border-0 bg-primary mt-3" data-bs-toggle="modal" data-bs-target="#createModal">
                 Create
             </button>
         </div>
-        <div class="input-group mt-4">
-            <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-            <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
-          </div>
+        <form id="test">
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" id="cari" placeholder="mencari...." autofocus >
+                <button class="btn btn-primary fw-bold" type="submit" id="cariTombol">Cari</button>
+            </div>
+        </form>
         
             <div class="d-flex justify-content-center"  id="loading" style="margin-top: 100px;position:fixed;z-index:999;left:20%;right:20%;" >
                 <div class="spinner-border text-primary" style="width: 6rem; height: 6rem;" role="status">
                     <span class="visually-hidden">Loading...</span>
                 </div>
             </div>
-
 
         <ol class="list-group list-group-numbered mt-3 mb-5" id="wadahPenduduk" >
            

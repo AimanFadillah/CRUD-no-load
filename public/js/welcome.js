@@ -4,12 +4,13 @@ let kirim = document.querySelector("#kirim");
 let wadahPeduduk = document.querySelector("#wadahPenduduk");
 let showModal = document.querySelector("#isiModalShow")
 let loading = document.querySelector("#loading");
-
+let cari = document.querySelector("#cari");
+let cariTombol = document.querySelector("#cariTombol");
+let isScrolling;
 let formEdit = document.querySelector("#formEdit");
-
 let page = 1;
-dataPenduduk(page);
 
+dataPenduduk(page,cari.value);
 
 formCreate.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -26,20 +27,27 @@ formCreate.addEventListener("submit", (e) => {
         wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
         wadahPeduduk.innerHTML = '';
         page = 1
-        dataPenduduk(page);
+        dataPenduduk(page,cari.value);
         window.addEventListener('scroll', scrollHandler);
         wadahPeduduk.style.height = "auto";
         kirim.disabled = false;
     })
-    .catch( hasil => {
-        console.log(hasil);
-        kirim.disabled = false;
-    })
 })
 
-function dataPenduduk (page) {
+cariTombol.addEventListener("click",(e) => {
+    e.preventDefault();
+    wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
+    wadahPeduduk.innerHTML = '';
+    page = 1
+    dataPenduduk(page,cari.value);
+    window.addEventListener('scroll', scrollHandler);
+    wadahPeduduk.style.height = "auto";
+    kirim.disabled = false;
+})
+
+function dataPenduduk (page,cari) {
     loading.classList.remove("d-none")
-    fetch(`/penduduk/data?page=${page}`)
+    fetch(`/penduduk/data?page=${page}&c=${cari}`)
     .finally( () => {
         loading.classList.add("d-none")
     })
@@ -144,7 +152,7 @@ document.addEventListener("click",function (e) {
             wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
             wadahPeduduk.innerHTML = '';
             for(let a = 1;a <= page;a++){
-                dataPenduduk(a);
+                dataPenduduk(a,cari.value);
             }
         }) 
       
@@ -197,7 +205,7 @@ document.addEventListener("click",function (e) {
             wadahPeduduk.style.height = `${wadahPeduduk.offsetHeight}px`;
             wadahPeduduk.innerHTML = '';
             for(let a = 1;a <= page;a++){
-                dataPenduduk(a);
+                dataPenduduk(a,cari.value);
             }
         })
     }
@@ -207,7 +215,7 @@ document.addEventListener("click",function (e) {
 
 
 
-let isScrolling;
+
 
 function scrollHandler () {
     if (isScrolling) {
@@ -216,8 +224,7 @@ function scrollHandler () {
     isScrolling = setTimeout(function() {
     if (window.scrollY + window.innerHeight >= document.body.offsetHeight) {
         page++;
-        dataPenduduk(page);
-        console.log(page);
+        dataPenduduk(page,cari.value);
         wadahPeduduk.style.height = "auto";
     }
     }, 200);

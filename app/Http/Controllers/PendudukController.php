@@ -14,8 +14,13 @@ class PendudukController extends Controller
 
     public function data (Request $request) {
         if(!$request->query("s")){
-            $data = Penduduk::latest()->paginate(30);
+
+            $cari = $request->query("c");
+
+            $data = Penduduk::where("nama","like","%" . $cari . "%",)->latest()->paginate(30);
+            
             return response()->json($data);
+
         }else{
             $id = $request->query("s");
 
