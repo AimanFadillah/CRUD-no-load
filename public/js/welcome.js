@@ -9,6 +9,7 @@ let cariTombol = document.querySelector("#cariTombol");
 let isScrolling;
 let formEdit = document.querySelector("#formEdit");
 let page = 1;
+let old = 0;
 
 dataPenduduk(page,cari.value);
 
@@ -178,15 +179,15 @@ document.addEventListener("click",function (e) {
                 <input type="hidden" name="_method" value="PUT" >
                 <div class="mb-3">
                     <label for="nama" class="form-label">Nama</label>
-                    <input type="nama" value="${hasil.nama}" name="nama" id="nama" class="form-control">
+                    <input type="nama" required value="${hasil.nama}" name="nama" id="nama" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="umur" class="form-label">umur</label>
-                    <input type="nama" value="${hasil.umur}" name="umur" id="umur" class="form-control">
+                    <input type="nama" required value="${hasil.umur}" name="umur" id="umur" class="form-control">
                 </div>
                 <div class="mb-3">
                     <label for="jabatan" class="form-label">jabatan</label>
-                    <input type="nama" value="${hasil.jabatan}" name="jabatan" id="jabatan" class="form-control">
+                    <input type="nama" required value="${hasil.jabatan}" name="jabatan" id="jabatan" class="form-control">
                 </div>
                 <button class="update btn btn-primary" id="update" data-Penduduk="${hasil.id}" type="submit" data-bs-dismiss="modal" >Kirim</button>
                 `
@@ -196,9 +197,9 @@ document.addEventListener("click",function (e) {
     if(e.target.classList.contains("update")){
         let updateButton = e.target.classList.contains("update");
         updateButton.disabled = true;
+        loading.classList.remove("d-none")
         e.preventDefault();
         let id = e.target.getAttribute("data-Penduduk");
-        loading.classList.remove("d-none")
         fetch(`/penduduk/${id}/`,{
             method: "post",
             body: new FormData(formEdit),
@@ -208,6 +209,7 @@ document.addEventListener("click",function (e) {
             },
         })
         .then(hasil => hasil.json())
+        .finally( () =>  loading.classList.add("d-none") )
         .then( (data) => {
             let penduduk = document.getElementById(data.id);
             let time =  new Date(data.created_at);
@@ -225,8 +227,9 @@ document.addEventListener("click",function (e) {
             </form>
             `;
             updateButton.disabled = false;
-            loading.classList.add("d-none")
         })
+    
+       
     }
     
     
